@@ -1,0 +1,13 @@
+clc;
+clear all;
+close all;
+N=input('enter the N value');
+x=rand(N,1);
+X=fft(x,N);
+energy_time=sum(abs(x).^2);
+energy_freq=(1/N)*sum(abs(x).^2);
+if(energy_freq==energy_time);
+    disp('proved')
+else
+    disp('not proved')
+end
