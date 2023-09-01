@@ -1,0 +1,17 @@
+clc;
+clear all;
+close all;
+x1=input('1st');
+x2=input('2nd');
+N=max(length(x1)+length(x2));
+X1=fft(x1,N);
+X2=fft(x2,N);
+y=X1.*X2;
+yn=ifft(y,N);
+disp('Circular conv')
+disp(yn)
+disp('output of conv')
+yv=cconv(x1,x2,N)
+disp(yv)
+stem(yv)
+title('circular using ')

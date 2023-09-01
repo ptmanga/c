@@ -1,0 +1,20 @@
+clc;
+clear all;
+close all;
+x1=input('1st');
+x2=input('2nd');
+N=length(x1)+length(x2)-1;
+X1=fft(x1,N);
+X2=fft(x2,N);
+y=X1.*X2;
+yn=ifft(y,N);
+disp('the output')
+disp(yn);
+n=0:N-1
+stem(n,yn);
+xlabel('time')
+ylabel('amp')
+title('linear conv')
+
+yc=cov(x1,x2);
+disp(yc);
