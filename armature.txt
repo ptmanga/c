@@ -1,0 +1,37 @@
+clc;
+clear all;
+close all;
+
+R = 1; 
+L = 0.5; 
+J = 0.01;
+b = 0.1;
+Km = 0.01;
+Kb = 0.01;
+
+num = Km;
+den = [J*L (J*R + b*L) (b*R + Km^2)];
+sys = tf(num, den);
+
+Kp = 1;
+Ki = 1;
+Kd = 0.1;
+Ts = 0.01;
+
+controller = pid(Kp, Ki, Kd);
+
+sys_cl = feedback(controller*sys, 1);
+
+t = 0:Ts:5;
+ref = 100*ones(size(t));
+
+[y, t] = step(ref*sys_cl, t);
+
+plot(t, squeeze(y),'b', 'LineWidth', 1.5);
+grid on;
+xlabel('Time (s)');
+ylabel('Speed (rad/s)');
+title('Step Response of DC Motor Speed Control');
+
+ss_error = abs(y(end) - ref(end));
+disp(['Steady-State Error: ' num2str(ss_error)]);
