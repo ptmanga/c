@@ -1,0 +1,35 @@
+clc;
+clear all;
+close all;
+
+Kp = 1;
+alpha = 0.5; 
+T1 = 0.1;
+T2 = 1; 
+
+num = [Kp*T1 Kp];
+den = [T1*T2 alpha*(T1+T2) 1];
+sys = tf(num, den);
+
+f = logspace(-2, 2, 1000); 
+
+figure;
+bode(sys, 2*pi*f); 
+grid on;
+title('Bode Plot of Lead-Lag Compensator');
+
+[mag, phase] = bode(sys, 2*pi*f);
+
+figure;
+semilogx(f, 20*log10(squeeze(mag)), 'b', 'LineWidth', 1.5);
+grid on;
+xlabel('Frequency (Hz)');
+ylabel('Magnitude (dB)');
+title('Magnitude Response of Lead-Lag Compensator');
+
+figure;
+semilogx(f, squeeze(phase), 'r', 'LineWidth', 1.5);
+grid on;
+xlabel('Frequency (Hz)');
+ylabel('Phase (degrees)');
+title('Phase Response of Lead-Lag Compensator');
