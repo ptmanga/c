@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+class SON; 
+class FATHER {
+private:
+ int income;
+public:
+ FATHER (int income) {
+ this->income = income;
+ }
+ friend int calculateTotalIncome(FATHER father, SON son);
+};
+class SON {
+private:
+ int income;
+public:
+ SON(int income) {
+ this->income = income;
+ }
+ friend int calculateTotalIncome(FATHER father, SON son);
+};
+int calculateTotalIncome(FATHER father, SON son) {
+ int totalIncome = father.income + son.income;
+ cout << "Total income of the family is " << totalIncome << endl;
+ return totalIncome;
+}
+int main() {
+int fat_inc,son_inc;
+cout<<"Enter father income:";
+cin>>fat_inc;
+cout<<"Enter son income:";
+cin>>son_inc;
+ FATHER father(fat_inc);
+ SON son(son_inc);
+calculateTotalIncome(father, son);
+return 0;
+}
